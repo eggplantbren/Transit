@@ -20,6 +20,7 @@
 #include "TransitModel.h"
 #include "RandomNumberGenerator.h"
 #include "Utils.h"
+#include "Data.h"
 #include <cmath>
 
 using namespace std;
@@ -91,7 +92,15 @@ double TransitModel::perturb()
 
 double TransitModel::logLikelihood() const
 {
-	return 0.;
+	double logL = 0.;
+	double var = pow(sigma, 2);
+	double mock;
+	for(int i=0; i<Data::get_instance().get_N(); i++)
+	{
+		mock = transit(Data::get_instance().get_t(i), amplitude, period, width, offset, smooth);
+		logL += -0.5*log(2.*M_PI*var) - 0.5*pow(Data::get_instance().get_y(i) - mock, 2)/var;
+	}
+	return logL;
 }
 
 void TransitModel::print(std::ostream& out) const
@@ -107,7 +116,12 @@ string TransitModel::description() const
 
 double TransitModel::logistic(double x, double scale)
 {
-	return 1./(1. + exp(-x/scale));
+	double X = x/scale;
+	if(X >=  10.)
+		return 1.;
+	if(X <= -10.)
+		return 0.;
+	return 1./(1. + exp(-X));
 }
 
 double TransitModel::transit_shape(double tt, double smooth)
