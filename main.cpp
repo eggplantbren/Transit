@@ -20,19 +20,16 @@
 #include <iostream>
 #include "Start.h"
 #include "TransitModel.h"
+#include "Data.h"
 
 using namespace std;
 using namespace DNest3;
 
 int main(int argc, char** argv)
 {
-	#ifndef DNest3_No_Boost
+	Data::get_instance().load("fake_data.txt");
 	MTSampler<TransitModel> sampler = setup_mt<TransitModel>(argc, argv);
-	#else
-	Sampler<TransitModel> sampler = setup<TransitModel>(argc, argv);
-	#endif
-
-	sampler.run();
+//	sampler.run();
 	return 0;
 }
 
