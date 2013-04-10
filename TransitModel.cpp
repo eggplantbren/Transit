@@ -104,3 +104,21 @@ string TransitModel::description() const
 	return string("# amplitude, period, width, offset, smooth, sigma");
 }
 
+
+double TransitModel::logistic(double x, double scale)
+{
+	return 1./(1. + exp(-x/scale));
+}
+
+double TransitModel::transit_shape(double tt, double smooth)
+{
+	return logistic(abs(tt) - 0.5, smooth) - 1.;
+}
+
+double TransitModel::transit(double t, double amplitude, double period,
+				double width, double offset, double smooth)
+{
+	double phase = mod(t/period - offset - 0.5, 1.) - 0.5;
+	return amplitude*transit_shape(phase/width, smooth);
+}
+

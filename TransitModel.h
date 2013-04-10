@@ -46,6 +46,13 @@ class TransitModel:public DNest3::Model
 		double perturbOne();
 		double& chooseParam();
 
+		// Stuff for the functional form of transits
+		static double logistic(double x, double scale);
+		static double transit_shape(double tt, double smooth);
+		static double transit(double t, double amplitude,
+					double period, double width,
+					double offset, double smooth);
+
 	public:
 		TransitModel();
 
