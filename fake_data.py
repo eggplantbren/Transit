@@ -33,7 +33,7 @@ width = 0.1
 offset = 0.15
 smooth = 0.02
 
-# Noise variance
+# Noise sd
 sigma = 1.
 
 # Noise-free transit signal
