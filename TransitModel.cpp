@@ -32,12 +32,61 @@ TransitModel::TransitModel()
 
 void TransitModel::fromPrior()
 {
+	_amplitude	= randomU();
+	_period		= randomU();
+	_width		= randomU();
+	_offset		= randomU();
+	_smooth		= randomU();
+	_sigma		= randomU();
+	assemble();
+}
 
+double& TransitModel::chooseParam()
+{
+	int which = randInt(6);
+	if(which == 0)
+		return _amplitude;
+	else if(which == 1)
+		return _period;
+	else if(which == 2)
+		return _width;
+	else if(which == 3)
+		return _offset;
+	else if(which == 4)
+		return _smooth;
+	else if(which == 5)
+		return _sigma;
+	return _amplitude;
+}
+
+double TransitModel::perturbOne()
+{
+	double& param = chooseParam();
+	param += pow(10., 1.5 - 6.*randomU());
+	param = mod(param, 1.);
+	return 0.;
+}
+
+void TransitModel::assemble()
+{
+	amplitude = exp(log(1E-3) + log(1E6)*_amplitude);
+	period = exp(log(1.) + log(1E6)*_period);
+	width  = exp(log(1E-6) + log(1E6)*_width);
+	offset = _offset;
+	smooth = exp(log(1E-4) + log(1E4)*_smooth);
+	sigma  = exp(log(1E-3) + log(1E6)*_sigma);
 }
 
 double TransitModel::perturb()
 {
-	return 0.;
+	double logH = 0.;
+
+	int num = 1. + randInt(6);
+	for(int i=0; i<num; i++)
+		logH += perturbOne();
+
+	assemble();
+	return logH;
 }
 
 double TransitModel::logLikelihood() const
@@ -47,11 +96,11 @@ double TransitModel::logLikelihood() const
 
 void TransitModel::print(std::ostream& out) const
 {
-
+	out<<amplitude<<' '<<period<<' '<<width<<' '<<offset<<' '<<smooth<<' '<<sigma<<' ';
 }
 
 string TransitModel::description() const
 {
-	return string("# Header for output files.");
+	return string("# amplitude, period, width, offset, smooth, sigma");
 }
 

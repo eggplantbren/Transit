@@ -26,7 +26,25 @@
 class TransitModel:public DNest3::Model
 {
 	private:
-		// Parameters go here
+		/*
+		* ALL PARAMETERS ARE LATENT VARIABLES WITH U(0, 1) PRIOR
+		* THESE GET TRANSFORMED PRIOR TO LIKELIHOOD EVALUATION
+		*/
+
+		// Transit parameters
+		double _amplitude, _period, _width, _offset, _smooth;
+
+		// Noise standard deviation
+		double _sigma;
+
+		// Actual parameters
+		double amplitude, period, width, offset, smooth;
+		double sigma;
+		// Compute them from the latent parameters
+		void assemble();
+
+		double perturbOne();
+		double& chooseParam();
 
 	public:
 		TransitModel();

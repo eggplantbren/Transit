@@ -29,7 +29,7 @@ int main(int argc, char** argv)
 {
 	Data::get_instance().load("fake_data.txt");
 	MTSampler<TransitModel> sampler = setup_mt<TransitModel>(argc, argv);
-//	sampler.run();
+	sampler.run();
 	return 0;
 }
 
