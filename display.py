@@ -2,7 +2,7 @@ from pylab import *
 from fake_data import *
 
 data = loadtxt('fake_data.txt')
-posterior_sample = loadtxt('posterior_sample.txt')
+posterior_sample = atleast_2d(loadtxt('posterior_sample.txt'))
 
 ion()
 for i in xrange(0, posterior_sample.shape[0]):
