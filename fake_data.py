@@ -28,7 +28,7 @@ if __name__ == '__main__':
 	t = linspace(0., 3., 10001)
 
 	# Parameter values
-	amplitude = 1.
+	amplitude = 0.2
 	period = 1.
 	width = 0.1
 	offset = 0.15

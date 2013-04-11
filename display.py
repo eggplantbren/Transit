@@ -30,3 +30,26 @@ for i in xrange(0, posterior_sample.shape[0]):
 ioff()
 show()
 
+
+which = posterior_sample[:,0] > 0.
+print('Prob(Exists | Data) = ' + str(which.mean()))
+
+figure(1)
+subplot(2,1,1)
+hist(log10(posterior_sample[which,0]), 100, alpha=0.5)
+axvline(log10(0.2), linewidth=3, color='r')
+xlabel('$\\log_{10}$(Amplitude)')
+
+subplot(2,1,2)
+hist(log10(posterior_sample[which,1]), 100, alpha=0.5)
+axvline(log10(1.), linewidth=3, color='r')
+xlabel('$\\log_{10}$(Period)')
+
+figure(2)
+plot(log10(posterior_sample[which, 0]), log10(posterior_sample[which, 1]), 'b.')
+plot(log10(0.2), log10(1.), 'r*', markersize=10)
+xlabel('$\\log_{10}$(Amplitude)')
+ylabel('$\\log_{10}$(Period)')
+
+show()
+

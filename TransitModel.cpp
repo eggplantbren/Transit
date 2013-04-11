@@ -70,11 +70,16 @@ double TransitModel::perturbOne()
 
 void TransitModel::assemble()
 {
-	amplitude = exp(log(1E-3) + log(1E6)*_amplitude);
+	// Allow amplitude to be zero with prior probability 0.5
+	if(_amplitude < 0.5)
+		amplitude = 0.;
+	else
+		amplitude = exp(log(1E-3) + log(1E6)*2.*(_amplitude - 0.5));
+
 	period = exp(log(0.01*Data::get_instance().get_tRange()) + log(1000.)*_period);
 	width  = exp(log(1E-6) + log(1E6)*_width);
 	offset = _offset;
-	smooth = exp(log(1E-4) + log(1E4)*_smooth);
+	smooth = exp(log(1E-4) + log(2.5E3)*_smooth);
 	sigma  = exp(log(1E-3) + log(1E6)*_sigma);
 }
 
