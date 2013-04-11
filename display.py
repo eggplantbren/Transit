@@ -39,6 +39,7 @@ subplot(2,1,1)
 hist(log10(posterior_sample[which,0]), 100, alpha=0.5)
 axvline(log10(0.2), linewidth=3, color='r')
 xlabel('$\\log_{10}$(Amplitude)')
+xlim([-3, 3])
 
 subplot(2,1,2)
 hist(log10(posterior_sample[which,1]), 100, alpha=0.5)
@@ -50,6 +51,7 @@ plot(log10(posterior_sample[which, 0]), log10(posterior_sample[which, 1]), 'b.')
 plot(log10(0.2), log10(1.), 'r*', markersize=10)
 xlabel('$\\log_{10}$(Amplitude)')
 ylabel('$\\log_{10}$(Period)')
+xlim([-3, 3])
 
 show()
 
