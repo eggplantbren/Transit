@@ -71,7 +71,7 @@ double TransitModel::perturbOne()
 void TransitModel::assemble()
 {
 	amplitude = exp(log(1E-3) + log(1E6)*_amplitude);
-	period = exp(log(1.) + log(1E6)*_period);
+	period = exp(log(0.01*Data::get_instance().get_tRange()) + log(1000.)*_period);
 	width  = exp(log(1E-6) + log(1E6)*_width);
 	offset = _offset;
 	smooth = exp(log(1E-4) + log(1E4)*_smooth);
@@ -82,7 +82,7 @@ double TransitModel::perturb()
 {
 	double logH = 0.;
 
-	int num = 1. + randInt(6);
+	int num = (randomU() <= 0.5)?(1):(1 + randInt(6));
 	for(int i=0; i<num; i++)
 		logH += perturbOne();
 
