@@ -25,7 +25,7 @@ if __name__ == '__main__':
 	seed(123)
 
 	# Data timestamps
-	t = linspace(0., 3., 100001)
+	t = linspace(0., 3., 10001)
 
 	# Parameter values
 	amplitude = 1.
