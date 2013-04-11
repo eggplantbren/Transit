@@ -63,7 +63,7 @@ double& TransitModel::chooseParam()
 double TransitModel::perturbOne()
 {
 	double& param = chooseParam();
-	param += pow(10., 1.5 - 6.*randomU());
+	param += pow(10., 1.5 - 6.*randomU())*randn();
 	param = mod(param, 1.);
 	return 0.;
 }
