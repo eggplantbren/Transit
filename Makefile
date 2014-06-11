@@ -1,4 +1,5 @@
 CFLAGS = -O2 -Wall -Wextra -ansi -pedantic
+#CFLAGS = -m64 -Ofast -flto -march=native -funroll-loops -Wall -Wextra -ansi -pedantic
 LIBS =  -ldnest3 -lgsl -lgslcblas -lboost_system -lboost_thread
 
 default:
